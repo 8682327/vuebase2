@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <cpn :c-message="message"></cpn>
+      <!-- 这里不能用驼峰标识，用到驼峰的地方，用-表示 -->
+    </div>
+
+    <!-- 第二种写法，写在templatez标签中 -->
+    <template id="cpn">
+      <h2>{{cMessage}}</h2>
+    </template>
+
+    <script src="../vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script>
+      // 父传子 props
+      const cpn = {
+        template: '#cpn',
+        props: {
+          cMessage: {
+            type: String,
+            default: 'abc',
+            required: true,
+          },
+        },
+      };
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: 'hello world',
+        },
+        components: {
+          cpn,
+        },
+      });
+    </script>
+  </body>
+</html>

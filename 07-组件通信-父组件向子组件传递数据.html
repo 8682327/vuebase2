@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <cpn v-bind:cmovies="movies" :cmessage="message"></cpn>
+    </div>
+
+    <!-- 第二种写法，写在templatez标签中 -->
+    <template id="cpn">
+      <div>
+        <ul>
+          <li v-for="item in cmovies">{{item}}</li>
+        </ul>
+        <h2>{{cmessage}}</h2>
+      </div>
+    </template>
+
+    <script src="../vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script>
+      // 父传子 props
+      const cpn = {
+        template: '#cpn',
+        // props: ['cmovies', 'cmessage'],
+        // props: {
+        //   1类型限制
+        //   cmovies: Array,
+        //   cmessage: String,
+        // },
+
+        // 2,提供一些默认值，以及必传值。
+        props: {
+          cmessage: {
+            type: String,
+            default: 'abc',
+            required: true,
+          },
+          // 类型是一个数组或者对象时，默认值必须是一个函数。
+          cmovies: {
+            type: Array,
+            default() {
+              return [];
+            },
+          },
+        },
+
+        data() {
+          return {};
+        },
+        methods: {},
+      };
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: 'hello world',
+          movies: ['航海王', '火影', '海贼王'],
+        },
+        components: {
+          // ES6对象属性的增强写法
+          cpn,
+          // cpn: cpn
+          // cpn: {
+          // template: '#cpn'
+          // }
+        },
+      });
+    </script>
+  </body>
+</html>
